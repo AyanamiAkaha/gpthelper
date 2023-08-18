@@ -1,0 +1,7 @@
+{
+      "extends": "airbnb-base",
+      "rules": {
+          "space-infix-ops": "off",
+          "no-plusplus": "off"
+      }
+}
