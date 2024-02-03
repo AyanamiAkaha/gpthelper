@@ -1,3 +1,4 @@
+const fs = require('fs');
 const yargs = require('yargs');
 const generatePrompt = require('./prompt');
 const callGPT = require('./gpt');
@@ -25,8 +26,13 @@ const { argv } = yargs
   })
   .option('prompt', {
     alias: 'p',
-    describe: 'Prompt to use',
+    describe: 'Prompt template to use',
     default: 'empty',
+    demandOption: false,
+  })
+  .option('file', {
+    alias: 'f',
+    describe: 'use prompt from file (entire file as single prompt)',
     demandOption: false,
   });
 
@@ -38,7 +44,10 @@ async function main(conf) {
   const promptOptions = {
     promptTemplate: argv.prompt,
   };
-  const userPrompt = argv._;
+  const file = argv.file === '-' ? '/dev/stdin' : argv.file;
+  const userPrompt = file
+    ? fs.readFileSync(file).toString('utf-8')
+    : argv._[0];
 
   const prompt = generatePrompt(userPrompt, promptOptions);
   if (dryRun) {
