@@ -41,8 +41,18 @@ async function main(conf) {
   const dryRun = conf['dry-run'];
   const { model, temperature } = conf;
 
+  let templateDirs = null;
+  const home = process.env.HOME;
+  try {
+    fs.mkdirSync(`${home}/.gpthelper-templates`, { recursive: true });
+    templateDirs = [`${home}/.gpthelper-templates`];
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn(e);
+  }
   const promptOptions = {
     promptTemplate: argv.prompt,
+    templateDirs,
   };
   const file = argv.file === '-' ? '/dev/stdin' : argv.file;
   const userPrompt = file

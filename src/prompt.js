@@ -7,10 +7,15 @@ const defaultOptions = {
 };
 
 module.exports = function generatePrompt(userPrompt, options) {
-  const { promptTemplate, templateDirs } = { ...defaultOptions, ...options };
+  const templateDirs = [...defaultOptions.templateDirs, ...options.templateDirs || []];
+  const { promptTemplate } = { ...defaultOptions, ...options };
   let template;
   for (let i=0; i<templateDirs.length && !template; i++) {
-    template = fs.readFileSync(path.join(templateDirs[i], `${promptTemplate}.json`));
+    const p = path.join(templateDirs[i], `${promptTemplate}.json`);
+    if (fs.existsSync(p)) {
+      template = fs.readFileSync(p);
+      break;
+    }
   }
   if (!template) {
     throw new Error(`Cannot find prompt template ${template}.json in any of: ${templateDirs.join('; ')}`);
