@@ -21,5 +21,5 @@ module.exports = function generatePrompt(userPrompt, options) {
     throw new Error(`Cannot find prompt template ${template}.json in any of: ${templateDirs.join('; ')}`);
   }
   return JSON.parse(template.toString('utf-8')
-    .replace('###PROMPT###', JSON.stringify(userPrompt).substring(1, userPrompt.length-1)));
+    .replace('###PROMPT###', JSON.stringify(userPrompt).slice(1, -1)));
 };
