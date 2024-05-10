@@ -1,6 +1,6 @@
 [
   {
     "role": "user",
-    "content": "Write a proper commit message for the following:\n\n###PROMPT###```"
+    "content": "Write a proper commit message for the following diff. Use 72-column layout for the message. Use bullet points to list changes. Summary should not exceed 60 characters.\n\n###PROMPT###```"
   }
 ]
