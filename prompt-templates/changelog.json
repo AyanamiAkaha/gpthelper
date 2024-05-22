@@ -1,0 +1,6 @@
+[
+  {
+    "role": "user",
+    "content": "Write a proper changelog for the following git log. Use 72-column layout for the message. Use bullet points to list changes.\n\n###PROMPT###```"
+  }
+]
